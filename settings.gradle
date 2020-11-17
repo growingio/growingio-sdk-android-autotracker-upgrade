@@ -1,0 +1,2 @@
+include ':autotracker-upgrade-2to3-cdp'
+rootProject.name = "growingio-sdk-android-autotracker-upgrade"
