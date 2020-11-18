@@ -160,7 +160,7 @@ public class GrowingIO implements IGrowingIO {
         }
         StringBuilder query = new StringBuilder();
         if (var != null) {
-            for (Iterator<String> iterator = var.keys(); iterator.hasNext(); ) {
+            for (Iterator<String> iterator = var.keys(); iterator.hasNext();) {
                 String key = iterator.next();
                 Object value = var.opt(key);
                 query.append(key).append("=").append(value).append("&");

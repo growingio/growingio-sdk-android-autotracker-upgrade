@@ -39,6 +39,7 @@ buildscript {
         mavenLocal()
         google()
         jcenter()
+        maven { url "http://oss.jfrog.org/oss-snapshot-local/" }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:3.5.0"
@@ -51,6 +52,7 @@ allprojects {
         mavenLocal()
         google()
         jcenter()
+        maven { url "http://oss.jfrog.org/oss-snapshot-local/" }
     }
 }
 
