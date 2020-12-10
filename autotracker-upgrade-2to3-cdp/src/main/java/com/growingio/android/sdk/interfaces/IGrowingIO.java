@@ -18,6 +18,7 @@ package com.growingio.android.sdk.interfaces;
 
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 
 import com.growingio.android.sdk.autotrack.GrowingAutotracker;
@@ -32,6 +33,8 @@ import java.util.Map;
  */
 @Deprecated
 public interface IGrowingIO {
+
+    void upgrade(Application context);
 
     /**
      * @deprecated {@link GrowingAutotracker#setLoginUserAttributes(Map)}

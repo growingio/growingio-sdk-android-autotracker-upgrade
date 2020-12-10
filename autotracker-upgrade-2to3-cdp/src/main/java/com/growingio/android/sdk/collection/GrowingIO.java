@@ -17,19 +17,29 @@
 package com.growingio.android.sdk.collection;
 
 import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.growingio.android.sdk.autotrack.GrowingAutotracker;
 import com.growingio.android.sdk.autotrack.hybrid.event.HybridPageEvent;
 import com.growingio.android.sdk.interfaces.IGrowingIO;
+import com.growingio.android.sdk.track.ContextProvider;
 import com.growingio.android.sdk.track.TrackMainThread;
+import com.growingio.android.sdk.track.data.PersistentDataProvider;
 import com.growingio.android.sdk.track.providers.DeviceInfoProvider;
 import com.growingio.android.sdk.track.utils.JsonUtil;
 
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -40,13 +50,13 @@ import java.util.Map;
 @Deprecated
 public class GrowingIO implements IGrowingIO {
     private static final String TAG = "GrowingIO";
+    private static final String KEEP_ID = "KEEP_ID";
 
     private static class SingleInstance {
         private static final IGrowingIO INSTANCE = new GrowingIO();
     }
 
     private GrowingIO() {
-
     }
 
     /**
@@ -57,6 +67,17 @@ public class GrowingIO implements IGrowingIO {
         return SingleInstance.INSTANCE;
     }
 
+    /**
+     * 需要在初始化前调用, 将userId以及deviceId从v2版本迁移到v3版本中
+     */
+    public void upgrade(Application context) {
+        ContextProvider.setContext(context);
+        if (PersistentDataProvider.get().getString(KEEP_ID, null) == null) {
+            upgradeDeviceId(context);
+            upgradeUserId(context);
+            PersistentDataProvider.get().putString(KEEP_ID, "true");
+        }
+    }
 
     @Override
     public IGrowingIO setUserAttributes(Map<String, ?> attributes) {
@@ -195,5 +216,56 @@ public class GrowingIO implements IGrowingIO {
     @Override
     public IGrowingIO bridgeForX5WebView(Object x5WebView) {
         return this;
+    }
+
+    private void upgradeDeviceId(Context context) {
+        String v2SpFileName = "growing_persist_data";
+        SharedPreferences sharedPreferences = context.getSharedPreferences(v2SpFileName, Context.MODE_PRIVATE);
+        String deviceId = sharedPreferences.getString("device_id", null);
+        if (deviceId != null) {
+            PersistentDataProvider.get().setDeviceId(deviceId);
+        }
+    }
+
+    private void upgradeUserId(Context context) {
+        String v2SpFileName = "growing_profile";
+        SharedPreferences sharedPreferences = context.getSharedPreferences(v2SpFileName, Context.MODE_PRIVATE);
+        String gioId = sharedPreferences.getString("pref_gio_id", null);
+        if (gioId != null) {
+            PersistentDataProvider.get().putString("GIO_ID", gioId);
+        }
+
+        File v2ShareFile = new File(context.getFilesDir(), ".gio.dir/gio.ipc.1");
+        if (v2ShareFile.exists()) {
+            FileChannel fileChannel = null;
+            try {
+                RandomAccessFile randomAccessFile = new RandomAccessFile(v2ShareFile, "rw");
+                fileChannel = randomAccessFile.getChannel();
+                // 44 = 2(magic_num) + 2(process_num) + 40(process_id)
+                // 44 = 4 * 11(modCount)
+                // 4 = split   44 + 44 + 4 为variableBaseAddress变量存储区地址
+                // 2 = sessionId len
+                // 10 * 4 = sessionId data 44 + 44 + 4 + 2 + 10 为userId的start
+                // 2 = userId len
+                // 1000 * 4 = userId data
+                ByteBuffer byteBuffer = fileChannel.map(FileChannel.MapMode.READ_WRITE, 44 + 44 + 4 + 2 + 10 * 4, 44 + 44 + 4 + 2 + 10 + 2 + 1000 * 4);
+                short len = byteBuffer.getShort();
+                if (len != 0) {
+                    byte[] result = new byte[len];
+                    byteBuffer.get(result);
+                    PersistentDataProvider.get().setLoginUserId(new String(result));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (fileChannel != null) {
+                    try {
+                        fileChannel.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
     }
 }
