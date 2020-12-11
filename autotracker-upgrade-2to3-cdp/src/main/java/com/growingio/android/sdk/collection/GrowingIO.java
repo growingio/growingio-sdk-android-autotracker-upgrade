@@ -191,7 +191,7 @@ public class GrowingIO implements IGrowingIO {
 
         TrackMainThread.trackMain().postEventToTrackMain(
                 new HybridPageEvent.Builder()
-                        .setPageName(pageName)
+                        .setPath(pageName)
                         .setTitle("")
                         .setQuery(query.toString())
                         .setTimestamp(System.currentTimeMillis()));
