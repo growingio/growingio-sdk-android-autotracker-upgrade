@@ -30,7 +30,6 @@ import com.growingio.android.sdk.interfaces.IGrowingIO;
 import com.growingio.android.sdk.track.ContextProvider;
 import com.growingio.android.sdk.track.TrackMainThread;
 import com.growingio.android.sdk.track.data.PersistentDataProvider;
-import com.growingio.android.sdk.track.providers.DeviceInfoProvider;
 import com.growingio.android.sdk.track.utils.JsonUtil;
 
 import org.json.JSONObject;
@@ -109,7 +108,7 @@ public class GrowingIO implements IGrowingIO {
 
     @Override
     public String getDeviceId() {
-        return DeviceInfoProvider.get().getDeviceId();
+        return GrowingAutotracker.get().getDeviceId();
     }
 
     @Override

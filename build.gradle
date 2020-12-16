@@ -10,8 +10,8 @@ buildscript {
         ]
 
         releaseConfiguration = [
-                releaseVersion    : "0.0.2-SNAPSHOT",
-                releaseVersionCode: 1,
+                releaseVersion    : "1.0.0",
+                releaseVersionCode: 10000,
         ]
 
         libraries = [
@@ -29,8 +29,8 @@ buildscript {
                 'growingio': [
                         'tracker_cdp_v2'    : 'com.growingio.android:vds-android-agent:cdp-1.2.4',
 
-                        'tracker_cdp_v3'    : "com.growingio.android:tracker-cdp:$releaseConfiguration.releaseVersion",
-                        'autotracker_cdp_v3': "com.growingio.android:autotracker-cdp:$releaseConfiguration.releaseVersion",
+                        'tracker_cdp_v3'    : "com.growingio.android:tracker-cdp:3.0.0",
+                        'autotracker_cdp_v3': "com.growingio.android:autotracker-cdp:3.0.0",
                 ],
         ]
     }

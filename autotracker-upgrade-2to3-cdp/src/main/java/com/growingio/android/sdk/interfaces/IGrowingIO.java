@@ -22,7 +22,6 @@ import android.app.Application;
 import android.content.Intent;
 
 import com.growingio.android.sdk.autotrack.GrowingAutotracker;
-import com.growingio.android.sdk.track.interfaces.ResultCallback;
 
 import org.json.JSONObject;
 
@@ -61,13 +60,13 @@ public interface IGrowingIO {
     IGrowingIO enableDataCollect();
 
     /**
-     * @deprecated {@link GrowingAutotracker#getDeviceId(ResultCallback)}
+     * @deprecated {@link GrowingAutotracker#getDeviceId()}
      */
     @Deprecated
     String getDeviceId();
 
     /**
-     * @deprecated {@link GrowingAutotracker#getDeviceId(ResultCallback)}
+     * @deprecated {@link GrowingAutotracker#getDeviceId()}
      */
     @Deprecated
     String getVisitUserId();
