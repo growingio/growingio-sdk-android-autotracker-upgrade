@@ -24,10 +24,10 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.growingio.android.sdk.TrackerContext;
 import com.growingio.android.sdk.autotrack.GrowingAutotracker;
 import com.growingio.android.sdk.autotrack.hybrid.event.HybridPageEvent;
 import com.growingio.android.sdk.interfaces.IGrowingIO;
-import com.growingio.android.sdk.track.ContextProvider;
 import com.growingio.android.sdk.track.TrackMainThread;
 import com.growingio.android.sdk.track.data.PersistentDataProvider;
 import com.growingio.android.sdk.track.utils.JsonUtil;
@@ -70,7 +70,7 @@ public class GrowingIO implements IGrowingIO {
      * 需要在初始化前调用, 将userId以及deviceId从v2版本迁移到v3版本中
      */
     public void upgrade(Application context) {
-        ContextProvider.setContext(context);
+        TrackerContext.init(context);
         if (PersistentDataProvider.get().getString(KEEP_ID, null) == null) {
             upgradeDeviceId(context);
             upgradeUserId(context);
