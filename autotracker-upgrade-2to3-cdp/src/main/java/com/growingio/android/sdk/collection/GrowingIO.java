@@ -180,7 +180,7 @@ public class GrowingIO implements IGrowingIO {
         }
         StringBuilder query = new StringBuilder();
         if (var != null) {
-            for (Iterator<String> iterator = var.keys(); iterator.hasNext();) {
+            for (Iterator<String> iterator = var.keys(); iterator.hasNext(); ) {
                 String key = iterator.next();
                 Object value = var.opt(key);
                 query.append(key).append("=").append(value).append("&");
@@ -252,7 +252,7 @@ public class GrowingIO implements IGrowingIO {
                 if (len != 0) {
                     byte[] result = new byte[len];
                     byteBuffer.get(result);
-                    PersistentDataProvider.get().setLoginUserIdAndUserKey(new String(result),null);
+                    PersistentDataProvider.get().setLoginUserIdAndUserKey(new String(result), null);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
