@@ -10,8 +10,8 @@ buildscript {
         ]
 
         releaseConfiguration = [
-                releaseVersion    : "3.2.0", // 支持升级到3.2.0之后的版本
-                releaseVersionCode: 30200,
+                releaseVersion    : "1.1.0", // 支持升级到3.2.0之后的版本
+                releaseVersionCode: 10100,
         ]
 
         libraries = [
@@ -28,9 +28,9 @@ buildscript {
 
                 'growingio': [
                         'tracker_cdp_v2'    : 'com.growingio.android:vds-android-agent:cdp-1.2.4',
+                        'tracker_cdp_v3'    : "com.growingio.android:tracker-cdp:3.3.3",
+                        'autotracker_cdp_v3': "com.growingio.android:autotracker-cdp:3.3.3",
 
-                        'tracker_cdp_v3'    : "com.growingio.android:tracker-cdp:3.2.1-SNAPSHOT",
-                        'autotracker_cdp_v3': "com.growingio.android:autotracker-cdp:3.2.1-SNAPSHOT",
                 ],
         ]
     }

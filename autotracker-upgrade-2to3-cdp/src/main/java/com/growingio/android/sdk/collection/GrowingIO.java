@@ -26,10 +26,10 @@ import android.util.Log;
 
 import com.growingio.android.sdk.TrackerContext;
 import com.growingio.android.sdk.autotrack.GrowingAutotracker;
-import com.growingio.android.sdk.autotrack.hybrid.event.HybridPageEvent;
 import com.growingio.android.sdk.interfaces.IGrowingIO;
 import com.growingio.android.sdk.track.TrackMainThread;
-import com.growingio.android.sdk.track.data.PersistentDataProvider;
+import com.growingio.android.sdk.track.events.hybrid.HybridPageEvent;
+import com.growingio.android.sdk.track.ipc.PersistentDataProvider;
 import com.growingio.android.sdk.track.utils.JsonUtil;
 
 import org.json.JSONObject;
@@ -252,7 +252,7 @@ public class GrowingIO implements IGrowingIO {
                 if (len != 0) {
                     byte[] result = new byte[len];
                     byteBuffer.get(result);
-                    PersistentDataProvider.get().setLoginUserId(new String(result));
+                    PersistentDataProvider.get().setLoginUserIdAndUserKey(new String(result), null);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
