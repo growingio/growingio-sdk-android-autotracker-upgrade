@@ -10,8 +10,8 @@ buildscript {
         ]
 
         releaseConfiguration = [
-                releaseVersion    : "3.2.0", // 支持升级到3.2.0之后的版本
-                releaseVersionCode: 30200,
+                releaseVersion    : "1.1.0", // 支持升级到3.2.0之后的版本
+                releaseVersionCode: 10100,
         ]
 
         libraries = [
