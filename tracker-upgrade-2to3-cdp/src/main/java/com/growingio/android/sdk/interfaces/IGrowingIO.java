@@ -21,14 +21,14 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 
-import com.growingio.android.sdk.autotrack.GrowingAutotracker;
+import com.growingio.android.sdk.track.GrowingTracker;
 
 import org.json.JSONObject;
 
 import java.util.Map;
 
 /**
- * @deprecated {@link GrowingAutotracker )}
+ * @deprecated {@link GrowingTracker )}
  */
 @Deprecated
 public interface IGrowingIO {
@@ -36,92 +36,92 @@ public interface IGrowingIO {
     void upgrade(Application context);
 
     /**
-     * @deprecated {@link GrowingAutotracker#get()#setLoginUserAttributes(Map)}
+     * @deprecated {@link GrowingTracker#get()#setLoginUserAttributes(Map)}
      */
     @Deprecated
     IGrowingIO setUserAttributes(Map<String, ?> attributes);
 
     /**
-     * @deprecated {@link GrowingAutotracker#get()#setLoginUserAttributes(Map)}
+     * @deprecated {@link GrowingTracker#get()#setLoginUserAttributes(Map)}
      */
     @Deprecated
     IGrowingIO setUserAttributes(JSONObject jsonObject);
 
     /**
-     * @deprecated {@link GrowingAutotracker#get()#setDataCollectionEnabled(boolean)}
+     * @deprecated {@link GrowingTracker#get()#setDataCollectionEnabled(boolean)}
      */
     @Deprecated
     IGrowingIO disableDataCollect();
 
     /**
-     * @deprecated {@link GrowingAutotracker#get()#setDataCollectionEnabled(boolean)}
+     * @deprecated {@link GrowingTracker#get()#setDataCollectionEnabled(boolean)}
      */
     @Deprecated
     IGrowingIO enableDataCollect();
 
     /**
-     * @deprecated {@link GrowingAutotracker#get()#getDeviceId()}
+     * @deprecated {@link GrowingTracker#get()#getDeviceId()}
      */
     @Deprecated
     String getDeviceId();
 
     /**
-     * @deprecated {@link GrowingAutotracker#get()#getDeviceId()}
+     * @deprecated {@link GrowingTracker#get()#getDeviceId()}
      */
     @Deprecated
     String getVisitUserId();
 
 
     /**
-     * @deprecated {@link GrowingAutotracker#get()#setLocation(double, double)}
+     * @deprecated {@link GrowingTracker#get()#setLocation(double, double)}
      */
     @Deprecated
     IGrowingIO setGeoLocation(double latitude, double longitude);
 
     /**
-     * @deprecated {@link GrowingAutotracker#get()#cleanLocation()}
+     * @deprecated {@link GrowingTracker#get()#cleanLocation()}
      */
     @Deprecated
     IGrowingIO clearGeoLocation();
 
     /**
-     * @deprecated {@link GrowingAutotracker#get()#setLoginUserId(String)}
+     * @deprecated {@link GrowingTracker#get()#setLoginUserId(String)}
      */
     @Deprecated
     IGrowingIO setUserId(String userId);
 
     /**
-     * @deprecated {@link GrowingAutotracker#get()#cleanLoginUserId()}
+     * @deprecated {@link GrowingTracker#get()#cleanLoginUserId()}
      */
     @Deprecated
     IGrowingIO clearUserId();
 
     /**
-     * @deprecated {@link GrowingAutotracker#get()#trackCustomEvent(String)}
+     * @deprecated {@link GrowingTracker#get()#trackCustomEvent(String)}
      */
     @Deprecated
     IGrowingIO track(String eventName);
 
     /**
-     * @deprecated {@link GrowingAutotracker#get()#trackCustomEvent(String, Map)}
+     * @deprecated {@link GrowingTracker#get()#trackCustomEvent(String, Map)}
      */
     @Deprecated
     IGrowingIO track(String eventName, JSONObject var);
 
     /**
-     * @deprecated {@link GrowingAutotracker#get()#trackCustomEvent(String, Map, String, String)}
+     * @deprecated {@link GrowingTracker#get()#trackCustomEvent(String, Map, String, String)}
      */
     @Deprecated
     IGrowingIO track(String eventName, JSONObject var, String itemId, String itemKey);
 
     /**
-     * @deprecated 无埋点不需要手动发送page事件
+     * @deprecated 手动发送page事件
      */
     @Deprecated
     IGrowingIO trackPage(String pageName);
 
     /**
-     * @deprecated 无埋点不需要手动发送page事件
+     * @deprecated 手动发送page事件
      */
     @Deprecated
     IGrowingIO trackPage(String pageName, JSONObject var);
@@ -139,19 +139,19 @@ public interface IGrowingIO {
     IGrowingIO setAndroidIdEnable(boolean androidIdEnable);
 
     /**
-     * @deprecated WebView自动注入bridge，无需手动注入
+     * @deprecated 埋点通过对应API手动注入
      */
     @Deprecated
     IGrowingIO bridgeForWebView(Object webView);
 
     /**
-     * @deprecated WebView自动注入bridge，无需手动注入
+     * @deprecated 埋点通过对应API手动注入
      */
     @Deprecated
     IGrowingIO bridgeForX5WebView(Object x5WebView);
 
     /**
-     * @deprecated Activity自动注入，无需手动注入
+     * @deprecated 埋点通过对应API手动注入
      */
     @Deprecated
     IGrowingIO onNewIntent(Activity activity, Intent intent);
